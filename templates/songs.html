@@ -1,0 +1,15 @@
+
+<div id="library-actions">
+	<a href="#" id="action-play-all" title="play all songs you see in this list!">play all</a> |
+	<a href="#" id="action-enqueue-all" title="enqueue all songs you see in the list">enqueue all</a>
+</div>
+
+{% for s in songs %}
+
+	<div class="song">
+		<div class="number">{{ forloop.counter }}</div>
+		<div class="title" index="{{ s.index }}">{{ s.title }} <a href="#" index="{{ s.index }}" class="action-enqueue" title="enqueue this song">+</a></div>
+		<div class="album">{{ s.album }}</div>
+	</div>
+
+{% endfor %}

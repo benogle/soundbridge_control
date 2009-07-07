@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block header %}
+<script type="text/javascript" src="/media/main.js"></script>
+{% endblock %}
+
+
+{% block content %}
+
+<div id="playlist">
+	<h1 class="playlist-head">Playlist</h1>
+	
+	<div id="volume-controls">
+		<a href="#" id="volume-up" title="volume up :)"></a>
+		<a href="#" id="volume-down" title="volume down :("></a>
+		<div id="volume-label" title="It's the volume! Yeah!">{{ volume }}%</div>
+	</div>
+	
+	<div id="playlist-controls">
+		<a href="#" id="action-prev"></a>
+		<a href="#" id="action-stop"></a>
+		<a href="#" id="action-play"></a>
+		<a href="#" id="action-pause"></a>
+		<a href="#" id="action-next"></a>
+	</div>
+	
+	<div id="playlist-data">
+	{{ playlist|safe }}
+	</div>
+	
+</div>
+
+<div id="library">
+	
+	<h1>{{ server_name }}</h1>
+	
+	{% if artists %}
+	
+	<form action='{% url filtersongs %}' id="filterform" method="post">
+		<select name="artist" id="artist">
+			{% for a in artists %}
+				<option>{{ a }}</option>
+			{% endfor %}
+		</select>
+		
+		<select name="album" id="album">
+		</select>
+		
+		<input type="hidden" name="index" id="song-index"/>
+	</form>
+	
+	{% endif %}
+	
+	<div id="songs">
+		
+	</div>
+	
+	<h3>Other Libraries</h3>
+	
+	<p>If you connect to one of these, you will stop the music.</p>
+	
+	<form action='{% url serverconnect %}' id="serverform" method="post">
+		<select name="server">
+			{% for s in servers %}
+				<option value="{{ s.index }}">{{ s.name }}</option>
+			{% endfor %}
+		</select>
+		
+		<input type="submit" value="Connect already!"/>
+	</form>
+	
+</div>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+
+<div id="current-song">
+    {% if current_song %}
+        <div class="artist">currently playing {{ current_song.artist }}</div>
+        <div class="title">{{ current_song.title }}</div>
+        <div class="album">album: {{ current_song.album }}</div>
+    {% else %}
+        <h3>stopped</h3>
+    {% endif %}
+</div>
+
+
+<div id="playlist-list">
+{% for s in songs %}
+    
+    {% ifequal forloop.counter current_index %}
+	<div class="song current-index">
+    {% else %}
+    <div class="song">
+    {% endifequal %}
+    
+        <div class="title" index="{{ s.index }}">{{ s.title }}
+		{% ifnotequal current_server 'Internet Radio' %}
+            <a href="#" class="action-remove" index="{{ s.index }}" title="remove this song from the playlist">x</a>
+		{% endifnotequal %}
+        </div>
+	</div>
+{% endfor %}
+
+	{% ifnotequal current_server 'Internet Radio' %}
+		<p><a href="#" title="clear the playlist; all of it!" id="action-clear-playlist">clear all</a></p>
+	{% endifnotequal %}
+	
+</div>
