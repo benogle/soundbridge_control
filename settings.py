@@ -69,7 +69,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 )
 
-ROOT_URLCONF = 'rokucontrol.urls'
+ROOT_URLCONF = 'soundbridge_control.urls'
 
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_PATH, 'templates')
@@ -83,5 +83,5 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
-    'rokucontrol.musicrollcontrol',
+    'soundbridge_control.musicrollcontrol',
 )

@@ -7,7 +7,7 @@ from django.conf import settings
 
 urlpatterns = patterns('',
     # Example:
-    (r'^', include('rokucontrol.musicrollcontrol.urls')),
+    (r'^', include('soundbridge_control.musicrollcontrol.urls')),
 
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
     # to INSTALLED_APPS to enable admin documentation:
