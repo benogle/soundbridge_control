@@ -38,10 +38,8 @@ class Rcp(object):
         self.wire.connect((hostname, port))
 
     def write(self, s):
-        
-        if isinstance(s, str):
-            s = unicode(s, encoding='utf-8')
-        s = s.encode('utf-8')
+        if isinstance(s, unicode):
+            s = s.encode('utf-8')
         
         self.wire.send(s)
 

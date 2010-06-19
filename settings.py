@@ -9,6 +9,14 @@ PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__)))
 
 ROKU_SERVER = 'radio'
 
+MEMCACHE_SERVERS = '127.0.0.1:11211'
+
+import logging
+logging.basicConfig(
+    level = logging.DEBUG,
+    format = '%(asctime)s %(levelname)s %(message)s',
+)
+
 ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
 )

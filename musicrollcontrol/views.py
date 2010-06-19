@@ -33,6 +33,10 @@ from django import forms
 from django.core.urlresolvers import reverse
 
 import roku
+import cache
+
+from datetime import datetime
+import logging
 
 def _roku():
     r = roku.Roku(settings.ROKU_SERVER)
@@ -45,25 +49,29 @@ def _roku():
         
     return r
 
+def _roku_song_data():
+    return cache.get_roku_cache(_roku)
+
 def _render(path, ctx):
     t = loader.get_template(path)
     c = Context(ctx)
     return t.render(c)
     
-def _get_playlist_data(r):
+def _get_playlist_data():
+    r = _roku_song_data()
     
-    cursong = r.current_song_info
+    cursong = r['current_song_info']
     if not 'title' in cursong: cursong = None
     
-    curi = r.current_index
+    curi = r['current_index']
     if curi != None:
         curi += 1
         
     return _render('playlist.html', {
         'current_song': cursong,
-        'songs': r.queue,
+        'songs': r['queue'],
         'current_index': curi,
-        'current_server': r.current_server_info['Name']
+        'current_server': r['current_server_info']['Name']
     })
 
 
@@ -85,7 +93,7 @@ def index(req):
     data = {
         'artists': artists,
         'server_name': r.current_server_info['Name'],
-        'playlist': _get_playlist_data(r),
+        'playlist': _get_playlist_data(),
         'servers': servers,
         'volume': r.volume
     }
@@ -93,11 +101,10 @@ def index(req):
     return render_to_response('index.html', data)
     
 def getplaylist(req):
-    r = _roku()
-
+    
     data = {
         'status': 'success',
-        'playlist': _get_playlist_data(r)
+        'playlist': _get_playlist_data()
     }
     
     return HttpResponse(json.dumps(data))
